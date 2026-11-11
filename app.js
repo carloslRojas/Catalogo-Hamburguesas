@@ -8,7 +8,7 @@ const MENU_DATA = {
   brand: {
     name: "BRASA & CO.",
     tagline: "Smash Burgers Artesanales",
-    whatsappNumber: "584240000000",
+    whatsappNumber: "584243573722", // +58 424-3573722
     currency: "$",
     prepTime: "15 - 25 min",
     pickupAddress: "Av. Principal Las Mercedes, Local 4B (Retiro Express)"
