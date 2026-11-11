@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>BRASA & CO. | Catálogo Digital & Constructor de Hamburguesas</title>
+
+  <!-- Tipografía moderna y legible -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS vía CDN de producción -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            charcoal: '#0F172A',
+            amberBrand: '#F59E0B',
+            toastedAmber: '#D97706'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Estilos personalizados para microinteracciones e Instagram WebView -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-[#0F172A] text-slate-100 min-h-screen selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- Resplandor ambiental superior -->
+  <div class="fixed inset-x-0 top-0 h-72 hero-glow pointer-events-none z-0"></div>
+
+  <!-- Contenedor principal Mobile-First (optimizado tipo app móvil / Instagram WebView) -->
+  <div class="relative z-10 max-w-lg mx-auto min-h-screen flex flex-col">
+
+    <!-- HEADER SEMÁNTICO -->
+    <header class="sticky top-0 z-30 backdrop-blur-xl bg-[#0F172A]/85 border-b border-slate-800/80 px-4 py-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-extrabold text-xl shadow-lg shadow-amber-500/20">
+            🍔
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-extrabold text-base tracking-tight text-white">BRASA &amp; CO.</span>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                Abierto
+              </span>
+            </div>
+            <p class="text-xs text-slate-400">Arma tu Smash Burger a tu gusto • 15-25 min</p>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          data-action="reset-builder"
+          title="Restablecer selección"
+          class="tactile-btn text-xs font-semibold text-slate-300 hover:text-amber-400 bg-slate-800/90 border border-slate-700/80 px-3 py-1.5 rounded-xl flex items-center gap-1.5"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          Reiniciar
+        </button>
+      </div>
+
+      <!-- Navegación rápida del catálogo -->
+      <nav aria-label="Catálogo de hamburguesas" class="mt-3">
+        <div id="catalog-tabs" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+          <!-- Renderizado dinámicamente desde MENU_DATA.catalog -->
+        </div>
+      </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-1 px-4 pt-4 main-content-padding space-y-6">
+
+      <!-- SECCIÓN 1: HAMBURGUESA BASE & INGREDIENTES ESTÁNDAR -->
+      <section aria-labelledby="section-base-heading">
+        <h2 id="section-base-heading" class="sr-only">Hamburguesa seleccionada</h2>
+        <div id="burger-hero">
+          <!-- Renderizado dinámicamente desde MENU_DATA -->
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: SELECTOR DE PROTEÍNA -->
+      <section aria-labelledby="section-protein-heading" class="bg-slate-900/70 border border-slate-800 rounded-3xl p-4 sm:p-5 shadow-xl">
+        <div class="flex items-center justify-between mb-3.5">
+          <div>
+            <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-500">Paso 1 • Obligatorio</span>
+            <h2 id="section-protein-heading" class="text-base sm:text-lg font-extrabold text-white">
+              Elige el tamaño de tu proteína
+            </h2>
+          </div>
+          <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30">
+            1 opción
+          </span>
+        </div>
+        <div id="protein-options" role="radiogroup" aria-labelledby="section-protein-heading" class="space-y-2.5">
+          <!-- Renderizado dinámicamente desde MENU_DATA.proteins -->
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: EXCLUIR INGREDIENTES (SIN ALTERAR EL PRECIO) -->
+      <section aria-labelledby="section-exclusions-heading" class="bg-slate-900/70 border border-slate-800 rounded-3xl p-4 sm:p-5 shadow-xl">
+        <div class="flex items-center justify-between mb-2">
+          <div>
+            <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-500">Paso 2 • Opcional ($0.00)</span>
+            <h2 id="section-exclusions-heading" class="text-base sm:text-lg font-extrabold text-white">
+              ¿Deseas excluir algún ingrediente?
+            </h2>
+          </div>
+          <span id="exclusions-count" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700">
+            Con todo
+          </span>
+        </div>
+        <p class="text-xs text-slate-400 mb-3.5">
+          Toca para quitar ingredientes de la receta base sin costo ni recargo.
+        </p>
+        <div id="exclusion-options" class="grid grid-cols-2 gap-2.5">
+          <!-- Renderizado dinámicamente desde MENU_DATA.exclusions -->
+        </div>
+      </section>
+
+      <!-- SECCIÓN 4: ADICIONALES CON COSTO -->
+      <section aria-labelledby="section-extras-heading" class="bg-slate-900/70 border border-slate-800 rounded-3xl p-4 sm:p-5 shadow-xl">
+        <div class="flex items-center justify-between mb-2">
+          <div>
+            <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-500">Paso 3 • Extras Premium</span>
+            <h2 id="section-extras-heading" class="text-base sm:text-lg font-extrabold text-white">
+              Adicionales con costo
+            </h2>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+            Opcional
+          </span>
+        </div>
+        <p class="text-xs text-slate-400 mb-3.5">
+          Potencia tu hamburguesa con porciones extra recién preparadas.
+        </p>
+        <div id="extras-options" class="space-y-2.5">
+          <!-- Renderizado dinámicamente desde MENU_DATA.extras -->
+        </div>
+      </section>
+
+      <!-- SECCIÓN 5: CANTIDAD Y DESGLOSE EN TIEMPO REAL -->
+      <section aria-labelledby="section-summary-heading" class="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-5 shadow-xl space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 id="section-summary-heading" class="text-sm sm:text-base font-extrabold text-white">
+              Cantidad de hamburguesas
+            </h2>
+            <p class="text-xs text-slate-400">Con esta misma configuración</p>
+          </div>
+
+          <div class="flex items-center gap-3 bg-slate-800 border border-slate-700 rounded-2xl p-1.5">
+            <button
+              type="button"
+              data-action="change-qty"
+              data-delta="-1"
+              aria-label="Disminuir cantidad"
+              class="tactile-btn w-9 h-9 rounded-xl bg-slate-900 hover:bg-slate-700 text-white font-extrabold text-lg flex items-center justify-center border border-slate-700"
+            >
+              −
+            </button>
+            <span id="burger-quantity" class="w-6 text-center font-extrabold text-base text-amber-400">1</span>
+            <button
+              type="button"
+              data-action="change-qty"
+              data-delta="1"
+              aria-label="Aumentar cantidad"
+              class="tactile-btn w-9 h-9 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-lg flex items-center justify-center shadow"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-800">
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+            Resumen de tu selección actual
+          </p>
+          <div id="live-breakdown">
+            <!-- Desglose en vivo -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- STICKY BOTTOM BAR (REACTIVA EN TIEMPO REAL) -->
+    <aside
+      aria-label="Barra de subtotal y continuar"
+      class="fixed bottom-0 inset-x-0 z-40 bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 shadow-[0_-10px_30px_rgba(0,0,0,0.6)] safe-bottom"
+    >
+      <div class="max-w-lg mx-auto px-4 pt-3 flex items-center justify-between gap-4">
+        <div class="min-w-0">
+          <span class="block text-[11px] uppercase tracking-wider font-bold text-slate-400">
+            Subtotal estimado
+          </span>
+          <div class="flex items-baseline gap-2">
+            <span id="sticky-subtotal" class="text-2xl sm:text-3xl font-extrabold text-amber-400 tracking-tight">
+              $6.00
+            </span>
+            <span id="sticky-meta" class="text-xs text-slate-300 truncate">
+              Simple
+            </span>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          data-action="open-checkout-modal"
+          class="tactile-btn flex-shrink-0 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-sm sm:text-base px-6 py-3.5 rounded-2xl shadow-lg shadow-amber-500/25 flex items-center gap-2"
+        >
+          <span>Continuar</span>
+          <svg class="w-5 h-5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </button>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- MODAL / FORMULARIO DE ENTREGA Y CHECKOUT WHATSAPP -->
+  <div
+    id="checkout-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+    class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+  >
+    <!-- Backdrop oscuro -->
+    <div
+      data-action="close-checkout-modal"
+      class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity"
+    ></div>
+
+    <!-- Panel del Modal (Bottom Sheet en móvil, centrado en desktop) -->
+    <div class="relative z-10 w-full max-w-lg max-h-[92dvh] overflow-y-auto bg-slate-900 border-t sm:border border-slate-700/80 rounded-t-3xl sm:rounded-3xl shadow-2xl p-5 sm:p-6 safe-bottom">
+      
+      <!-- Indicador visual tipo sheet móvil -->
+      <div class="w-12 h-1.5 bg-slate-700 rounded-full mx-auto mb-4 sm:hidden"></div>
+
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div>
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-400">
+            Paso Final • Datos de Entrega
+          </span>
+          <h2 id="modal-title" class="text-lg sm:text-xl font-extrabold text-white">
+            Completa tu pedido
+          </h2>
+        </div>
+        <button
+          type="button"
+          data-action="close-checkout-modal"
+          aria-label="Cerrar ventana"
+          class="tactile-btn w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center border border-slate-700"
+        >
+          ✕
+        </button>
+      </div>
+
+      <form id="checkout-form" class="mt-4 space-y-4" novalidate>
+
+        <!-- Alerta de validación -->
+        <div
+          id="form-error-alert"
+          role="alert"
+          class="hidden p-3.5 rounded-2xl bg-rose-500/15 border border-rose-500/50 text-rose-200 text-xs sm:text-sm font-medium flex items-center gap-2.5"
+        >
+          <span class="text-base">⚠️</span>
+          <span id="form-error-text">Por favor completa todos los campos requeridos.</span>
+        </div>
+
+        <!-- Selector de Modalidad: Pickup ($0) vs Delivery -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+            1. Modalidad de entrega
+          </label>
+          <div id="delivery-mode-selector" class="grid grid-cols-2 gap-3">
+            <!-- Renderizado dinámicamente -->
+          </div>
+        </div>
+
+        <!-- Banner informativo cuando es Retiro en Tienda (Pickup) -->
+        <div id="pickup-info-banner" class="p-3.5 rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-start gap-2.5">
+          <span class="text-lg">📍</span>
+          <div class="text-xs text-slate-300">
+            <span class="font-bold text-white block">Dirección de retiro en tienda ($0.00):</span>
+            <span id="pickup-address-text" class="text-slate-400"></span>
+          </div>
+        </div>
+
+        <!-- Selector de Zonas de Delivery (Centro $1.50, Norte $2.00, Periferia $3.00) -->
+        <div id="delivery-zones-section" class="hidden space-y-2">
+          <label class="block text-xs font-bold uppercase tracking-wider text-amber-400">
+            2. Selecciona tu zona de envío
+          </label>
+          <div id="delivery-zones-options" class="grid grid-cols-1 gap-2">
+            <!-- Renderizado dinámicamente -->
+          </div>
+        </div>
+
+        <!-- Campos de captura del cliente -->
+        <div class="space-y-3 pt-1">
+          <div>
+            <label for="customer-name" class="block text-xs font-bold text-slate-300 mb-1">
+              Nombre completo <span class="text-amber-400">*</span>
+            </label>
+            <input
+              type="text"
+              id="customer-name"
+              name="fullName"
+              autocomplete="name"
+              placeholder="Ej. Carlos Rodríguez"
+              required
+              class="w-full px-4 py-3 rounded-xl bg-slate-800/90 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
+            />
+          </div>
+
+          <div>
+            <label for="customer-phone" class="block text-xs font-bold text-slate-300 mb-1">
+              Teléfono de contacto (WhatsApp) <span class="text-amber-400">*</span>
+            </label>
+            <input
+              type="tel"
+              id="customer-phone"
+              name="phone"
+              autocomplete="tel"
+              placeholder="Ej. 0424-1234567"
+              required
+              class="w-full px-4 py-3 rounded-xl bg-slate-800/90 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
+            />
+          </div>
+
+          <!-- Dirección exacta (Obligatoria si es Delivery) -->
+          <div id="address-field-wrapper" class="hidden">
+            <label for="customer-address" class="block text-xs font-bold text-slate-300 mb-1">
+              Dirección exacta de entrega <span class="text-amber-400">* (Obligatoria en Delivery)</span>
+            </label>
+            <textarea
+              id="customer-address"
+              name="address"
+              rows="2"
+              placeholder="Urbanización, calle, edificio/casa y punto de referencia..."
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-800/90 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors resize-none"
+            ></textarea>
+          </div>
+
+          <div>
+            <label for="customer-notes" class="block text-xs font-bold text-slate-400 mb-1">
+              Nota adicional (Opcional)
+            </label>
+            <input
+              type="text"
+              id="customer-notes"
+              name="notes"
+              placeholder="Ej. Timbre dañado, llamar al llegar..."
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-800/60 border border-slate-700/70 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-amber-500 transition-colors"
+            />
+          </div>
+        </div>
+
+        <!-- Resumen de cuenta y desglose exacto antes de enviar -->
+        <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800">
+          <p class="text-[11px] font-extrabold uppercase tracking-wider text-amber-400 mb-2">
+            Resumen y total estimado
+          </p>
+          <div id="modal-order-summary">
+            <!-- Renderizado dinámicamente -->
+          </div>
+          <p class="text-[11px] text-slate-400 mt-2.5 flex items-center gap-1.5">
+            <span>🔒</span>
+            <span>No solicitamos referencias bancarias en la web. Coordinarás el pago directo por WhatsApp.</span>
+          </p>
+        </div>
+
+        <!-- Botón de acción hacia WhatsApp -->
+        <button
+          type="submit"
+          class="tactile-btn w-full py-4 px-5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-base shadow-xl shadow-amber-500/25 flex items-center justify-center gap-2.5"
+        >
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.126.556 4.124 1.535 5.861l-1.535 5.603 5.747-1.508c1.693.924 3.635 1.449 5.7 1.449 6.627 0 12-5.373 12-12s-5.373-12-11.447-11.405z"/>
+          </svg>
+          <span>Pedir por WhatsApp</span>
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Lógica modular ES6+ -->
+  <script src="app.js"></script>
+</body>
+</html>

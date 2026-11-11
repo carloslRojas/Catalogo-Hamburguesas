@@ -1,0 +1,80 @@
+/* Estilos personalizados y optimizaciones para Mobile-First & Instagram WebView */
+:root {
+  --bg-charcoal: #0F172A;
+  --bg-card: #1E293B;
+  --accent-amber: #F59E0B;
+  --accent-toasted: #D97706;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: var(--bg-charcoal);
+  color: #F8FAFC;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overscroll-behavior-y: none;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Soporte para barras inferiores de Instagram WebView / iOS Safari */
+.safe-bottom {
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+}
+
+.main-content-padding {
+  padding-bottom: calc(7.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* Microinteracciones táctiles */
+.tactile-btn {
+  touch-action: manipulation;
+  user-select: none;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.2s ease,
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.tactile-btn:active {
+  transform: scale(0.96);
+}
+
+/* Animación de pulso en cambio de precio */
+@keyframes pricePop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.12); color: #FBBF24; }
+  100% { transform: scale(1); }
+}
+
+.price-pop {
+  animation: pricePop 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Animación de sacudida para validación de formulario */
+@keyframes shakeError {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.shake-error {
+  animation: shakeError 0.35s ease-in-out;
+}
+
+/* Scrollbar oculta para carruseles horizontales de chips/catálogo */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Gradiente decorativo superior */
+.hero-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.22) 0%, rgba(15, 23, 42, 0) 72%);
+}
